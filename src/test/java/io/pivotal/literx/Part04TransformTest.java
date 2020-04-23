@@ -8,6 +8,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
 
+import java.time.Duration;
+
 /**
  * Learn how to transform values.
  *
@@ -33,13 +35,14 @@ public class Part04TransformTest {
 	@Test
 	public void transformFlux() {
 		Flux<User> flux = repository.findAll();
-		StepVerifier.create(workshop.capitalizeMany(flux))
+		Duration duration = StepVerifier.create(workshop.capitalizeMany(flux))
 				.expectNext(
-					new User("SWHITE", "SKYLER", "WHITE"),
-					new User("JPINKMAN", "JESSE", "PINKMAN"),
-					new User("WWHITE", "WALTER", "WHITE"),
-					new User("SGOODMAN", "SAUL", "GOODMAN"))
+						new User("SWHITE", "SKYLER", "WHITE"),
+						new User("JPINKMAN", "JESSE", "PINKMAN"),
+						new User("WWHITE", "WALTER", "WHITE"),
+						new User("SGOODMAN", "SAUL", "GOODMAN"))
 				.verifyComplete();
+		System.out.println("Part04TransformTest.transformFlux:" + duration.toMillis() + "ms");
 	}
 
 //========================================================================================
@@ -47,13 +50,14 @@ public class Part04TransformTest {
 	@Test
 	public void  asyncTransformFlux() {
 		Flux<User> flux = repository.findAll();
-		StepVerifier.create(workshop.asyncCapitalizeMany(flux))
+		Duration duration = StepVerifier.create(workshop.asyncCapitalizeMany(flux))
 				.expectNext(
-					new User("SWHITE", "SKYLER", "WHITE"),
-					new User("JPINKMAN", "JESSE", "PINKMAN"),
-					new User("WWHITE", "WALTER", "WHITE"),
-					new User("SGOODMAN", "SAUL", "GOODMAN"))
+						new User("SWHITE", "SKYLER", "WHITE"),
+						new User("JPINKMAN", "JESSE", "PINKMAN"),
+						new User("WWHITE", "WALTER", "WHITE"),
+						new User("SGOODMAN", "SAUL", "GOODMAN"))
 				.verifyComplete();
+		System.out.println("Part04TransformTest.asyncTransformFlux:" + duration.toMillis() + "ms");
 	}
 
 }
